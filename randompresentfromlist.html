@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #333333;
+            color: aliceblue;
+            display: flex;
+            gap: 50px;
+            font-size: 25px;
+        }
+
+        button{background: #5d5d90;
+  border-radius: 999px;
+ 
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 4px 9px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+  margin: 5px;
+   
+        }
+        .present {
+            font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 90px;
+  color: #ffffff;
+  text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+
+        //modell
+        let presentWishesList = [];
+        let addPresent;
+        let randomPresent = "";
+
+        //view
+        updateView();
+        function updateView(){
+            let html= " ";
+            html += `<input type='text' oninput='addPresent = this.value'><button onclick="addYourWish()">Add your wishing presents</button>`
+
+            for(i=0; i<presentWishesList.length; i++){
+                html +=` <div>${presentWishesList[i]}</div><button onclick="deleteWish(${i})">delete</button><hr>`
+            }
+        
+
+        html += `<p> Randomly choose one of the presents from the list</p>
+                <button onclick="generateRandomPresent()">random</button>
+                <p class="present">${randomPresent}</p>`
+
+        document.getElementById('app').innerHTML = html
+         }
+
+
+        //controller
+
+
+        function addYourWish(){
+            presentWishesList.push(addPresent);
+            updateView();
+        }
+
+        function deleteWish(index){
+            presentWishesList.splice(index, 1);
+            updateView();
+        }
+
+        function generateRandomPresent(){
+            let newNameList = presentWishesList.filter( i => i != randomPresent);
+            let random = Math.floor(Math.random() * newNameList.length);
+            randomPresent = newNameList[random];
+            if(presentWishesList.length == 0) {
+                randomPresent = 'you have to add presents to the list before generating a random present'
+            }
+
+            updateView();
+        }
+    </script>
+    
+</body>
+</html>
